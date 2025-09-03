@@ -50,10 +50,89 @@
      border: none;
 }
 .title {
-    padding-left: 38%;
     font-size: 50px;
     color: #fff;
+    margin: 20px 0 10px;
+    position: relative;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
 }
 body {
     background: rgba(108, 120, 125, 0.35);
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Result / answer reveal styles */
+.result {
+    position: absolute;
+    top: 220px;
+    left: 25%;
+    right: 25%;
+    text-align: center;
+}
+.result-text {
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+.result-text.win { color: #009688; }
+.result-text.lose { color: #E91E63; }
+
+.play-again {
+    font-size: 22px;
+    padding: 8px 16px;
+    color: #fff;
+    background: #00BCD4;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Inline loss-only placement below submit button */
+.inline-answer {
+    position: absolute;
+    top: 340px; /* roughly below the submit button with current layout */
+    left: 25%;
+    right: 25%;
+    text-align: center;
+}
+
+/* Reveal animation and spacing for characters */
+.reveal-char {
+    display: inline-block;
+    min-width: 20px;          /* keeps width per letter so they don't collapse */
+    margin-right: 6px;        /* spacing between letters */
+    text-align: center;       /* center each letter in its cell */
+    letter-spacing: 0;        /* ensure consistent spacing */
+    font-weight: 600;         /* readability */
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: dropIn 400ms ease forwards;
+    vertical-align: middle;
+}
+.reveal-char:last-child { margin-right: 0; }
+
+.reveal-char:nth-child(1)  { animation-delay: 0ms; }
+.reveal-char:nth-child(2)  { animation-delay: 60ms; }
+.reveal-char:nth-child(3)  { animation-delay: 120ms; }
+.reveal-char:nth-child(4)  { animation-delay: 180ms; }
+.reveal-char:nth-child(5)  { animation-delay: 240ms; }
+.reveal-char:nth-child(6)  { animation-delay: 300ms; }
+.reveal-char:nth-child(7)  { animation-delay: 360ms; }
+.reveal-char:nth-child(8)  { animation-delay: 420ms; }
+.reveal-char:nth-child(9)  { animation-delay: 480ms; }
+.reveal-char:nth-child(10) { animation-delay: 540ms; }
+.reveal-char:nth-child(11) { animation-delay: 600ms; }
+.reveal-char:nth-child(12) { animation-delay: 660ms; }
+.reveal-char:nth-child(13) { animation-delay: 720ms; }
+.reveal-char:nth-child(14) { animation-delay: 780ms; }
+.reveal-char:nth-child(15) { animation-delay: 840ms; }
+
+@keyframes dropIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

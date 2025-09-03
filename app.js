@@ -88,6 +88,9 @@ app.controller("GameController",['$scope','$timeout',function($scope,$timeout){
 	var selectedWord='';
 	$scope.guesses=6;
 	$scope.displayWord='';
+	$scope.gameOver=false;
+	$scope.didWin=false;
+	$scope.revealChars=[];
 	$scope.input = {
 		letter: ''
 	};
@@ -101,6 +104,9 @@ app.controller("GameController",['$scope','$timeout',function($scope,$timeout){
 		$scope.correctLettersChosen=[];
 		$scope.guesses=6;
 		$scope.displayWord="";
+		$scope.gameOver=false;
+		$scope.didWin=false;
+		$scope.revealChars=[];
 		selectedWord=selectRandomWord();
 		var tempDisplayWord='';
 		for(var i=0;i<selectedWord.length;i++) {
@@ -108,6 +114,10 @@ app.controller("GameController",['$scope','$timeout',function($scope,$timeout){
 		}
 		$scope.displayWord=tempDisplayWord;
 		// Random word selection.
+	}
+	$scope.playAgain = function(){
+		newGame();
+		$timeout(function(){ $('.dial').trigger('change'); },500);
 	}
 	$scope.letterChosen = function() {
 		// Check if $scope.input.letter is a single letter and an alphabet and not an already chosen letter.
@@ -158,25 +168,25 @@ app.controller("GameController",['$scope','$timeout',function($scope,$timeout){
 		$scope.input.letter="";
 		if($scope.guesses==0) {
 			// You Lose
+			$scope.gameOver=true;
+			$scope.didWin=false;
+			$scope.revealChars = selectedWord.toUpperCase().split('');
 			$timeout(function() {
-				newGame();
-				$timeout(function() {
 				$('.dial').trigger('change');
-			},500);
+				// Scroll a bit to ensure inline answer is visible on small screens
+				try { window.scrollTo(0, document.body.scrollHeight); } catch(e) {}
 			},500);
 		}
 		if($scope.displayWord.indexOf("*")==-1) {
-			// Show score
+			// You Win
+			$scope.gameOver=true;
+			$scope.didWin=true;
+			$scope.revealChars = selectedWord.toUpperCase().split('');
 			$timeout(function() {
-				newGame();
-				$timeout(function() {
 				$('.dial').trigger('change');
-			},500);
-				 
 			},500);
 		}
 	}
-	
     
     
    
