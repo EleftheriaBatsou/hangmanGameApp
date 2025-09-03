@@ -50,12 +50,19 @@
      border: none;
 }
 .title {
-    padding-left: 38%;
     font-size: 50px;
     color: #fff;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 body {
     background: rgba(108, 120, 125, 0.35);
+    min-height: 100vh;
+    position: relative;
 }
 
 /* Result / answer reveal styles */
