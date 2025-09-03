@@ -158,6 +158,7 @@ app.controller("GameController",['$scope','$timeout',function($scope,$timeout){
 		$scope.input.letter="";
 		if($scope.guesses==0) {
 			// You Lose
+			alert("You lost! The correct word was: " + selectedWord.toUpperCase());
 			$timeout(function() {
 				newGame();
 				$timeout(function() {
@@ -167,6 +168,7 @@ app.controller("GameController",['$scope','$timeout',function($scope,$timeout){
 		}
 		if($scope.displayWord.indexOf("*")==-1) {
 			// Show score
+			alert("You won! The word was: " + selectedWord.toUpperCase());
 			$timeout(function() {
 				newGame();
 				$timeout(function() {
@@ -176,7 +178,6 @@ app.controller("GameController",['$scope','$timeout',function($scope,$timeout){
 			},500);
 		}
 	}
-	
     
     
    
