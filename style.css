@@ -83,6 +83,15 @@ body {
     cursor: pointer;
 }
 
+/* Inline loss-only placement below submit button */
+.inline-answer {
+    position: absolute;
+    top: 340px; /* roughly below the submit button with current layout */
+    left: 25%;
+    right: 25%;
+    text-align: center;
+}
+
 /* Reveal animation */
 .reveal-char {
     display: inline-block;

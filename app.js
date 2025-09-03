@@ -173,6 +173,8 @@ app.controller("GameController",['$scope','$timeout',function($scope,$timeout){
 			$scope.revealChars = selectedWord.toUpperCase().split('');
 			$timeout(function() {
 				$('.dial').trigger('change');
+				// Scroll a bit to ensure inline answer is visible on small screens
+				try { window.scrollTo(0, document.body.scrollHeight); } catch(e) {}
 			},500);
 		}
 		if($scope.displayWord.indexOf("*")==-1) {
