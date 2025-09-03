@@ -92,13 +92,21 @@ body {
     text-align: center;
 }
 
-/* Reveal animation */
+/* Reveal animation and spacing for characters */
 .reveal-char {
     display: inline-block;
+    min-width: 20px;          /* keeps width per letter so they don't collapse */
+    margin-right: 6px;        /* spacing between letters */
+    text-align: center;       /* center each letter in its cell */
+    letter-spacing: 0;        /* ensure consistent spacing */
+    font-weight: 600;         /* readability */
     opacity: 0;
     transform: translateY(-10px);
     animation: dropIn 400ms ease forwards;
+    vertical-align: middle;
 }
+.reveal-char:last-child { margin-right: 0; }
+
 .reveal-char:nth-child(1)  { animation-delay: 0ms; }
 .reveal-char:nth-child(2)  { animation-delay: 60ms; }
 .reveal-char:nth-child(3)  { animation-delay: 120ms; }
