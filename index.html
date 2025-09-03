@@ -47,17 +47,30 @@
 
 		 	<span class="incorrect" 
 				  style="top:40px"
-		 		  ng-repeat="letter in incorrectLettersChosen"><del>{{letter}}</del></span>
+			  ng-repeat="letter in incorrectLettersChosen"><del>{{letter}}</del></span>
 
 		</div>
 	</div>
 
 	<div class="word">{{displayWord}}</div>
-	<div class="input">
+
+	<!-- Result / Answer reveal -->
+	<div class="result" ng-if="gameOver">
+		<p class="result-text" ng-class="{'win': didWin, 'lose': !didWin}">
+			<span ng-if="didWin">You won! The word was: </span>
+			<span ng-if="!didWin">You lost! The correct word was: </span>
+			<span class="answer">
+				<span ng-repeat="c in revealChars track by $index" class="reveal-char">{{c}}</span>
+			</span>
+		</p>
+		<button class="play-again" ng-click="playAgain()">Play again</button>
+	</div>
+
+	<div class="input" ng-if="!gameOver">
 		<input type="text" name="guess" ng-model="input.letter" ng-minlength="1" ng-maxlength="1" ng-pattern="/^[A-Za-z]+$/">
 		
 	</div>
-	<button class="button" ng-click="letterChosen()">SUBMIT</button>
+	<button class="button" ng-if="!gameOver" ng-click="letterChosen()">SUBMIT</button>
 </body>
 <script>
     $(function() {
