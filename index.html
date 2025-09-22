@@ -71,6 +71,7 @@
 		
 	</div>
 	<button class="button" ng-if="!gameOver" ng-click="letterChosen()">SUBMIT</button>
+	<button class="button hint-button" ng-if="!gameOver" ng-click="useHint()" ng-disabled="guesses<=0 || displayWord.indexOf('*')===-1">Hint (-1 guess)</button>
 
 	<!-- Inline loss-only answer shown just below the submit button -->
 	<div class="inline-answer" ng-if="gameOver && !didWin">

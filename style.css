@@ -136,3 +136,20 @@ body {
         transform: translateY(0);
     }
 }
+
+/* Hint button styling */
+.hint-button {
+    position: absolute;
+    margin-left: 43%;
+    font-size: 24px;
+    margin-top: 70px; /* placed below the submit button */
+    color: #fff;
+    background: #FFC107; /* amber to differentiate from submit */
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+.hint-button[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

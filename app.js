@@ -119,6 +119,76 @@ app.controller("GameController",['$scope','$timeout',function($scope,$timeout){
 		newGame();
 		$timeout(function(){ $('.dial').trigger('change'); },500);
 	}
+	$scope.useHint = function() {
+		// Reveal a random unrevealed letter at the cost of 1 guess
+		if ($scope.gameOver || $scope.guesses <= 0) return;
+
+		// Collect indices of unrevealed positions
+		var unrevealed = [];
+		for (var i = 0; i < $scope.displayWord.length; i++) {
+			if ($scope.displayWord[i] === '*') unrevealed.push(i);
+		}
+		if (unrevealed.length === 0) return;
+
+		// Pick a random unrevealed position and determine the target letter
+		var idx = unrevealed[Math.floor(Math.random() * unrevealed.length)];
+		var targetLetter = selectedWord[idx].toUpperCase();
+
+		// Reveal all occurrences of that letter
+		for (var j = 0; j < selectedWord.length; j++) {
+			if (selectedWord[j].toUpperCase() === targetLetter) {
+				$scope.displayWord = $scope.displayWord.slice(0, j) + targetLetter + $scope.displayWord.slice(j + 1);
+			}
+		}
+
+		// Record the letter in correctLettersChosen if not already present
+		var exists = false;
+		for (var k = 0; k < $scope.correctLettersChosen.length; k++) {
+			if ($scope.correctLettersChosen[k].toUpperCase() === targetLetter) {
+				exists = true; break;
+			}
+		}
+		if (!exists) {
+			$scope.correctLettersChosen.push(targetLetter);
+		}
+
+		// Cost one guess
+		$scope.guesses--;
+
+		// Animate correct icon for feedback
+		var objhand = $(".correct-icon");
+		objhand.animate({height: '-100px', opacity: '0.4'}, "fast");
+		objhand.animate({width: '200px', opacity: '0.8'}, "fast");
+		objhand.animate({height: '100px', opacity: '0.4'}, "fast");
+		objhand.animate({width: '100px', opacity: '0.8'}, "fast");
+
+		// Update knob and check game state
+		$timeout(function() {
+			$('.dial').trigger('change');
+		}, 500);
+
+		if ($scope.guesses == 0 && $scope.displayWord.indexOf("*") != -1) {
+			// Lost due to running out of guesses without fully revealing
+			$scope.gameOver = true;
+			$scope.didWin = false;
+			$scope.revealChars = selectedWord.toUpperCase().split('');
+			$timeout(function() {
+				$('.dial').trigger('change');
+				try { window.scrollTo(0, document.body.scrollHeight); } catch(e) {}
+			}, 500);
+			return;
+		}
+
+		if ($scope.displayWord.indexOf("*") == -1) {
+			// Completed the word via hint
+			$scope.gameOver = true;
+			$scope.didWin = true;
+			$scope.revealChars = selectedWord.toUpperCase().split('');
+			$timeout(function() {
+				$('.dial').trigger('change');
+			}, 500);
+		}
+	}
 	$scope.letterChosen = function() {
 		// Check if $scope.input.letter is a single letter and an alphabet and not an already chosen letter.
 		// Check if its correct.
