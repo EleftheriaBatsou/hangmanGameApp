@@ -103,6 +103,7 @@ app.controller("GameController",['$scope','$timeout',function($scope,$timeout){
 		$scope.incorrectLettersChosen = [];
 		$scope.correctLettersChosen=[];
 		$scope.guesses=6;
+		$scope.hintsLeft=2;
 		$scope.displayWord="";
 		$scope.gameOver=false;
 		$scope.didWin=false;
@@ -120,8 +121,8 @@ app.controller("GameController",['$scope','$timeout',function($scope,$timeout){
 		$timeout(function(){ $('.dial').trigger('change'); },500);
 	}
 	$scope.useHint = function() {
-		// Reveal a random unrevealed letter at the cost of 1 guess
-		if ($scope.gameOver || $scope.guesses <= 0) return;
+		// Reveal a random unrevealed letter at the cost of 1 guess and 1 hint
+		if ($scope.gameOver || $scope.guesses <= 0 || $scope.hintsLeft <= 0) return;
 
 		// Collect indices of unrevealed positions
 		var unrevealed = [];
@@ -152,8 +153,9 @@ app.controller("GameController",['$scope','$timeout',function($scope,$timeout){
 			$scope.correctLettersChosen.push(targetLetter);
 		}
 
-		// Cost one guess
+		// Cost one guess and one hint
 		$scope.guesses--;
+		$scope.hintsLeft--;
 
 		// Animate correct icon for feedback
 		var objhand = $(".correct-icon");
