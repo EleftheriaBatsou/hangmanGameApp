@@ -70,7 +70,10 @@
 		<input type="text" name="guess" ng-model="input.letter" ng-minlength="1" ng-maxlength="1" ng-pattern="/^[A-Za-z]+$/">
 		
 	</div>
-	<button class="button" ng-if="!gameOver" ng-click="letterChosen()">SUBMIT</button>
+	<div class="actions" ng-if="!gameOver">
+		<button class="button" ng-click="letterChosen()">SUBMIT</button>
+		<button class="button hint-button" ng-click="useHint()" ng-disabled="guesses<=0 || hintsLeft<=0 || displayWord.indexOf('*')===-1">Hint (-1 guess, {{hintsLeft}} left)</button>
+	</div>
 
 	<!-- Inline loss-only answer shown just below the submit button -->
 	<div class="inline-answer" ng-if="gameOver && !didWin">

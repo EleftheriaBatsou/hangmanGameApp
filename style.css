@@ -1,6 +1,6 @@
 .guess {
     margin-left: 40%;
-    margin-top: -3%;
+    margin-top: 20px;
 }
 .correctLetter>i {
     margin-left: 80%;
@@ -41,13 +41,12 @@
     margin-top: 100px;
 }
 .button{
-	position: absolute;
-    margin-left: 43%;
     font-size: 30px;
-    margin-top: 20px;
     color:#fff;
     background: #00BCD4;
-     border: none;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
 }
 .title {
     font-size: 50px;
@@ -135,4 +134,27 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Hint button styling */
+.hint-button {
+    font-size: 24px;
+    color: #fff;
+    background: #FFC107; /* amber to differentiate from submit */
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+.hint-button[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Actions row for buttons */
+.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 30px; /* space below input */
 }
